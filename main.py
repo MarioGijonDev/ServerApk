@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 import requests
 
-API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
+API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=popularity.desc"
 API_KEY = "29558a4bd1bceae95502ae68301038eb"
 
 listOfAllMovies = []
@@ -10,6 +10,8 @@ listOfAllMovies = []
 app = FastAPI()
 page = 1
 def getMoviesFromTmdbApi():
+  global page
+  global listOfAllMovies
   headers = {
     "accept": "application/json",
     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOTU1OGE0YmQxYmNlYWU5NTUwMmFlNjgzMDEwMzhlYiIsIm5iZiI6MTcxOTMyODAxMi43NTk2OTYsInN1YiI6IjY2MjFhZTRjYmIxMDU3MDE4OWQyNGY4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.B-Ad3TSiycU0-qSZsE8w4p9x2dpWZ0BP9WZaf5y0Xfw",
@@ -26,9 +28,9 @@ def getMoviesFromTmdbApi():
       page = page+1
       return getMoviesFromTmdbApi()
     else:
-      return true
+      return True
   else:
-    return false
+    return False
     print("Imposible conectar con el servidor")
 
 if getMoviesFromTmdbApi():
@@ -38,7 +40,7 @@ else:
   print("Error")
   
 
-""" @app.get("/test")
+@app.get("/test")
 def index():
     return {
         "Recommends": [
@@ -53,4 +55,10 @@ def index():
         ]
     }
 
- """
+@app.get("/testAllMovies")
+def allMovies():
+    # Retornar la respuesta en el formato requerido
+    return {
+        "Recommends": listOfAllMovies
+    }
+

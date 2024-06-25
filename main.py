@@ -3,12 +3,7 @@ from fastapi import FastAPI
 import requests
 
 API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=popularity.desc"
-API_KEY = "29558a4bd1bceae95502ae68301038eb"
 
-listOfAllMovies = []
-
-app = FastAPI()
-page = 1
 def getMoviesFromTmdbApi():
   global page
   global listOfAllMovies
@@ -31,13 +26,17 @@ def getMoviesFromTmdbApi():
       return True
   else:
     return False
-    print("Imposible conectar con el servidor")
+    print("Rejected connection")
 
+listOfAllMovies = []
+page = 1
+
+app
 if getMoviesFromTmdbApi():
-  print("FIN")
-  print(listOfAllMovies)
+  global app
+  app = FastAPI()
 else:
-  print("Error")
+  print("Error getting films from TMDB API")
   
 
 @app.get("/test")
@@ -59,6 +58,6 @@ def index():
 def allMovies():
     # Retornar la respuesta en el formato requerido
     return {
-        "Recommends": listOfAllMovies
+      "Recommends": listOfAllMovies
     }
 

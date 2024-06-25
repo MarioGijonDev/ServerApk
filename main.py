@@ -5,7 +5,7 @@ app = FastAPI()
 @app.get("/")
 def index():
   return {
-    "FilmId" : "38",
-    "TextFilm": "asdasdjhajkfhsiofbnasñkldfbaskjdfbañsifhajkñsdfkajñsdhfajksfh"
+    "id" : "38",
+    "txt": "asdasdjhajkfhsiofbnasñkldfbaskjdfbañsifhajkñsdfkajñsdhfajksfh"
   }
 

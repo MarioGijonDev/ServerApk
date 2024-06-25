@@ -8,11 +8,11 @@ def index():
         "Recommends": [
             {
                 "id": "1011985",
-                "txt": "ESTE ES EL TEXTO DE KUNG FU PANDA"
+                "txt": "Este es el texto de la pelicula Kung fu Panda con el id 1011985 describiendo la razón de la recomendación"
             },
             {
                 "id": "940551",
-                "txt": "ESTE ES EL TEXTO DEL PUTO PÁJARO"
+                "txt": "Este es el texto de la pelicula Migration con el id 940551 describiendo la razón de la recomendación"
             }
         ]
     }

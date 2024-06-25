@@ -56,7 +56,6 @@ def index():
 
 @app.get("/testAllMovies")
 def allMovies():
-    # Retornar la respuesta en el formato requerido
     return {
       "Recommends": listOfAllMovies
     }

@@ -4,6 +4,10 @@ import requests
 
 API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=popularity.desc"
 
+app = FastAPI()
+listOfAllMovies = []
+page = 1
+
 def getMoviesFromTmdbApi():
   global page
   global listOfAllMovies
@@ -28,14 +32,9 @@ def getMoviesFromTmdbApi():
     return False
     print("Rejected connection")
 
-listOfAllMovies = []
-page = 1
 
-app
 if getMoviesFromTmdbApi():
   print("Conection to TMDB -> success")
-  global app
-  app = FastAPI()
 else:
   print("Error getting films from TMDB API")
   

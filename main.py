@@ -33,6 +33,7 @@ page = 1
 
 app
 if getMoviesFromTmdbApi():
+  print("Conection to TMDB -> success")
   global app
   app = FastAPI()
 else:

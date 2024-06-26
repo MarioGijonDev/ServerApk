@@ -14,6 +14,9 @@ app = FastAPI()
 listOfAllMovies = []
 page = 1
 
+class MovieOnDB(BaseModel):
+  idTmdb: int
+  rate: int
 
 def getMoviesFromTmdbApi():
   global page
@@ -39,22 +42,11 @@ def getMoviesFromTmdbApi():
     return False
     print("Rejected connection")
 
-def main():
-  if getMoviesFromTmdbApi():
-    print("Conection to TMDB -> success")
-  else:
-    print("Error getting films from TMDB API")
-  
 
-
-
-
-if __name__ == "__main__":
-  main()
-
-class MovieOnDB(BaseModel):
-  idTmdb: int
-  rate: int
+if getMoviesFromTmdbApi():
+  print("Conection to TMDB -> success")
+else:
+  print("Error getting films from TMDB API")
 
 @app.get("/test")
 def index(movies: List[MovieOnDB]):

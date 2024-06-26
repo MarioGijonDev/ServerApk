@@ -43,10 +43,10 @@ def getMoviesFromTmdbApi():
     print("Rejected connection")
 
 @app.post("/test")
-def index(movies: List[MovieOnDB], request: Request):
+def index(movies: List[MovieOnDB]):
   for movie in movies:
     logging.info(f"Received movie with idTmdb: {movie.idTmdb} and rate: {movie.rate}")
-    
+
   return {
     "Recommends": [
       {

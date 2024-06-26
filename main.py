@@ -44,21 +44,15 @@ def getMoviesFromTmdbApi():
 
 @app.post("/test")
 def index(movies: List[MovieOnDB]):
+  recommends = []
   for movie in movies:
     logging.info(f"Received movie with idTmdb: {movie.idTmdb} and rate: {movie.rate}")
-
-  return {
-    "Recommends": [
-      {
-        "id": "1011985",
-        "txt": "Este es el texto de la pelicula Kung fu Panda con el id 1011985 describiendo la razón de la recomendación"
-      },
-      {
-        "id": "940551",
-        "txt": "Este es el texto de la pelicula Migration con el id 940551 describiendo la razón de la recomendación"
-      } 
-    ] 
-  }
+    recommend = {
+        "id": str(movie.idTmdb),
+        "txt": f"Este es el texto de la película con id {movie.idTmdb}. Le diste un rate de {movie.rate}."
+    }
+    recommends.append(recommend)
+  return {"Recommends": recommends}
 
 @app.get("/testAllMovies")
 def allMovies():

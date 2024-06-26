@@ -1,4 +1,10 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+import logging
+
+# Configuración básica de logging
+logging.basicConfig(level=logging.INFO) 
 
 import requests
 
@@ -7,6 +13,7 @@ API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_
 app = FastAPI()
 listOfAllMovies = []
 page = 1
+
 
 def getMoviesFromTmdbApi():
   global page
@@ -32,15 +39,27 @@ def getMoviesFromTmdbApi():
     return False
     print("Rejected connection")
 
-
-if getMoviesFromTmdbApi():
-  print("Conection to TMDB -> success")
-else:
-  print("Error getting films from TMDB API")
+def main():
+  if getMoviesFromTmdbApi():
+    print("Conection to TMDB -> success")
+  else:
+    print("Error getting films from TMDB API")
   
 
+
+
+
+if __name__ == "__main__":
+  main()
+
+class MovieOnDB(BaseModel):
+  idTmdb: int
+  rate: int
+
 @app.get("/test")
-def index():
+def index(movies: List[MovieOnDB]):
+    for movie in movies:
+      logging.info(f"Received movie with idTmdb: {movie.idTmdb} and rate: {movie.rate}")
     return {
         "Recommends": [
             {

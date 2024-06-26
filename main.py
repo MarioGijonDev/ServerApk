@@ -42,12 +42,6 @@ def getMoviesFromTmdbApi():
     return False
     print("Rejected connection")
 
-
-if getMoviesFromTmdbApi():
-  print("Conection to TMDB -> success")
-else:
-  print("Error getting films from TMDB API")
-
 @app.get("/test")
 def index(movies: List[MovieOnDB]):
     for movie in movies:
@@ -67,7 +61,12 @@ def index(movies: List[MovieOnDB]):
 
 @app.get("/testAllMovies")
 def allMovies():
-    return {
-      "Recommends": listOfAllMovies
-    }
+  global listOfAllMovies
+  return {
+    "Recommends": listOfAllMovies
+  }
 
+if getMoviesFromTmdbApi():
+  print("Conection to TMDB -> success")
+else:
+  print("Error getting films from TMDB API")

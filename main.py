@@ -2,13 +2,12 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import logging
+import requests
 
 # Configuración básica de logging
 logging.basicConfig(level=logging.INFO) 
 
-import requests
-
-API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=popularity.desc"
+POPULAR_MOVIES_API = "https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=popularity.desc"
 
 app = FastAPI()
 listOfAllMovies = []
@@ -28,19 +27,19 @@ def getMoviesFromTmdbApi():
     "language": "en-US",
     "page": str(page)
   }
-
-  response = requests.get(API_URL, headers=headers)
-
+  response = requests.get(POPULAR_MOVIES_API, headers=headers)
   if response.status_code == 200:
     if page < 190:
       listOfAllMovies.append(response.json())
       page = page+1
       return getMoviesFromTmdbApi()
     else:
+      page = 1
       return True
   else:
-    return False
     print("Rejected connection")
+    return False
+
 
 @app.post("/test")
 def index(movies: List[MovieOnDB]):
